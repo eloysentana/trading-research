@@ -1,0 +1,4 @@
+# crypto_quote_monitor.py uses the newer SDK, closed_orders.py the older one —
+# both were tried at different points, install whichever script you're running.
+alpaca-py
+alpaca-trade-api

@@ -1,0 +1,5 @@
+# Covers data_pipeline/ and strategies/. See broker-experiments/*/requirements.txt
+# for the broker-specific SDKs used in that folder.
+selenium
+webdriver-manager
+pandas

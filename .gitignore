@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+logs/
+datasets/
+symbols folder/
+Temp_files/
+drivers/
+env_main_strat/
+ambiente_*/
+venv/
+.env
