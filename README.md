@@ -1,6 +1,6 @@
 # Trading Research
 
-This is the follow-up to [gap-fade-trading-bot](https://github.com/eloysentana/gap-fade-trading-bot), built between December 2022 and April 2023. After running that bot for a while, I wanted to be more disciplined about it: build a proper historical dataset first, actually backtest my ideas against it, and only then go looking for a broker to execute on. This repo is what came out of that — a data pipeline, five rounds of candle-pattern backtests across stocks and forex, and a survey of three broker APIs, ending with a grid/martingale forex bot.
+This is the follow-up to [gap-fade-trading-bot](https://github.com/eloysentana/gap-fade-trading-bot) that I  built between December 2022 and April 2023. After running that bot for a while, I wanted to be more disciplined about it: build a proper historical dataset first, actually backtest my ideas against it, and only then go looking for a broker to execute on. This repo is what came out of that — a data pipeline, five rounds of candle-pattern backtests across stocks and forex, and a survey of three broker APIs, ending with a grid/martingale forex bot.
 
 > ⚠️ Nothing here ever touched a funded account. The Alpaca work used paper trading; the XTB work used a demo account.
 
@@ -18,7 +18,7 @@ Each folder has its own README with more detail. The short version, roughly in t
 2. **strat1 → strat5**: five rounds of candle-pattern ideas, each tested against that dataset — gap reversal, post-shock volatility straddles, a 3-candle gap-and-go pattern, a raw overnight-gap diagnostic, and finally a candle-streak reversal idea that's where I ended up pivoting from equities to forex (EURUSD).
 3. **Broker survey**: once I had a forex idea I liked, I went looking for somewhere to actually run it — Alpaca (crypto quotes, paper), FXCM (looked into it, never wrote any code), and XTB, which is where I ended up building the most developed piece: a grid/martingale bot on a demo account.
 
-## Why the XTB bot is a different animal
+## The XTB bot
 
 Everything in `strategies/` is me trying to find a small statistical edge while staying roughly flat. `broker-experiments/xtb/martingale_bot.py` is a completely different approach: it opens a buy-limit and a sell-limit around the current price, and whichever side fills first gets its take-profit set while the *opposite* side's next order roughly doubles in size. That's a martingale — it wins small and often, but a sustained move in one direction without enough account equity behind it can blow through the whole grid. I'm including it here because it's a real part of how this research went, not because I'd recommend it.
 
@@ -38,7 +38,3 @@ export ALPACA_SECRET_KEY=...
 export XTB_ACCOUNT_ID=...
 export XTB_PASSWORD=...
 ```
-
-## Security note
-
-Every credential in this repo is read from an environment variable now. The originals (Alpaca paper-trading keys, an XTB demo account login) were hardcoded in the source while I was actually working on this — if you find a leaked credential in your own old projects, treat it as compromised, and if you ever reused that password anywhere else, change it there too.
